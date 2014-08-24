@@ -1,0 +1,181 @@
+1. Fragment identifier. It is not part of a URI, but is often used in conjunction with one.
+2. absoluteURI   = scheme ":" ( hier_part | opaque_part )
+   URI-reference = [ absoluteURI | relativeURI ] [ "#" fragment ]
+3.a. g:h
+  b.
+  w. /../g
+  x. g/./h
+  y. g#s/../x
+  z. g?y/./x
+
+Authority component: preceded by a double slash "//" and is terminated by the
+next slash "/", question-mark "?", or by the end of the URI.
+
+4. URL : Uniform resource locator
+   URN : Uniform resource name
+    URN differs from a URL in that it's primary purpose is persistent labeling
+   of a resource with an identifier.
+
+   todos son URL menos el h y el j
+
+5. TODO
+
+6. Si, todos son equivalentes. El domain name es case insensitive, el resto es
+   case sensitive, pero no se tiene en cuenta en el caso de caracteres especiales
+   codificados ( por eso %7e = %7E )
+
+7.  En la terminal: nc -l 9090
+    Luego de entrar por chrome a localhost:9090 , en consola dice:
+
+    GET / HTTP/1.1
+    Host: localhost:9090
+    Connection: keep-alive
+    Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+    User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.116 Safari/537.36
+    Accept-Encoding: gzip,deflate,sdch
+    Accept-Language: en-US,en;q=0.8,es;q=0.6,pt;q=0.4
+    Cookie: org.cups.sid=12f98b571b648df6e715912ec1a84e66
+
+    GET: method to be performed on the resource identified by the Request-URI
+    / : Absolute path (root)
+    Host: network location of the URI (authority) MUST be transmitted in a Host header field
+    Connection:
+    keep-alive: HTTP persistent connection. idea of using a single TCP connection to send
+                and receive multiple HTTP requests/responses, as opposed to opening a new
+                connection for every single request/response pair
+    Accept:
+    User-Agent:
+    Accept-Encoding:
+    Accept-Language:
+    Cookie:
+  b. TODO PREGUNTAR!
+      HTTP/1.1 302 Found
+      Content-Type: text/html
+      Content-Length: 30
+      <html><head></head><body>a</body></html>
+
+
+
+
+
+
+
+
+
+
+
+
+      sadf
+      asdf
+      asdf
+      sadf
+
+    Luego en el browser apareció:
+        sadf asdf asdf sadf
+
+8.
+En la terminal hacer:
+    > nc -v www.google.com 80
+    > GET / HTTP/1.1
+    >
+    >
+   (apretar enter dos veces)
+
+   ****Preguntar****
+   Devuelve 302 Found, pero en la guía dice que debería devolver 301 Permanently Moved
+
+9.
+The chunked encoding modifies the body of a message in order to transfer it
+as a series of chunks, each with its own size indicator, followed by an
+OPTIONAL trailer containing entity-header fields. This allows dynamically
+produced content to be transferred along with the information necessary for the
+recipient to verify that it has received the full message.
+
+Otras codificaciones son:
+ * identity: default (identity) encoding; the use of no transformation
+     whatsoever. This content-coding is used only in the Accept- Encoding
+     header, and SHOULD NOT be used in the Content-Encoding header.
+ * gzip: encoding format produced by the file compression program GNU zip
+ * compress: encoding format produced by the common UNIX file compression program "compress"
+ * deflate: "zlib" format
+
+10.
+Media Type: Standard identifier used on the Internet to indicate the type of
+data that a file contains
+
+a.
+b. type/subtype
+
+c.i.   text/html
+c.ii.  text/plain
+c.iii. text/css
+c.iv.  text/javascript (o application/javascript) -- TODO PREGUNTAR
+c.v.   image/jpeg ; image/gif ; image/png
+c.vi.  application/pdf
+c.vii. application/x-... ???? -- TODO PREGUNTAR, dice estar deprecated!
+
+11.
+
+Ventajas:
+- By opening and closing fewer TCP connections, CPU time is saved in routers
+  and hosts (clients, servers, proxies, gateways, tunnels, or caches), and
+  memory used for TCP protocol control blocks can be saved in hosts.
+- HTTP requests and responses can be pipelined on a connection.  Pipelining
+  allows a client to make multiple requests without waiting for each response,
+  allowing a single TCP connection to be used much more efficiently, with much
+  lower elapsed time.
+- Network congestion is reduced by reducing the number of packets caused by TCP
+  opens, and by allowing TCP sufficient time to determine the congestion state
+  of the network.
+- Latency on subsequent requests is reduced since there is no time spent in
+  TCP's connection opening handshake.
+- HTTP can evolve more gracefully, since errors can be reported without the
+  penalty of closing the TCP connection. Clients using future versions of HTTP
+  might optimistically try a new feature, but if communicating with an older
+  server, retry with old semantics after an error is reported.
+
+Pipelining: sending multiple requests without waiting for each response
+
+12.
+Métodos: GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT.
+
+La propiedad de idempotencia en métodos significa que se puede llamar
+varias veces al mismo método sin resultados diferentes. Formalmente, una
+función f es idempotente si cumple la siguiente propiedad:
+    f . f = f
+Esto no es lo mismo que transparencia referencial! Si bien idempotencia
+implica transparencia referencial, pero no se cumple la inversa (transparencia
+referencial no necesariamente implica idempotencia).
+Los métodos GET, HEAD, PUT, DELETE y OPTIONS son idempotentes, mientras que
+POST y PATCH no lo son.
+
+b. Si bien se puede culpar al browser, parte de la culpa esta en quien diseño
+   la página y optó por usar el metodo GET para acciones que deberían realizarse
+   con el método DELETE.
+c. Por que da lo mismo realizar uno o más DELETE, el resultado final es el mismo,
+   se borrará el archivo.
+d. POST se utiliza para:
+- Annotation of existing resources;
+- Posting a message to a bulletin board, newsgroup, mailing list,
+  or similar group of articles;
+- Providing a block of data, such as the result of submitting a
+  form, to a data-handling process;
+- Extending a database through an append operation.
+POST se utiliza cuando:
+- The interaction is more like an order
+- The interaction changes the state of the resource in a way that the user
+  would perceive (e.g., a subscription to a service)
+- The user be held accountable for the results of the interaction.
+
+15.
+a. The Authorization field value consists of credentials containing the
+   authentication information of the user agent for the realm of the resource
+   being requested.
+b. Se puede recuperar ya que no está cifrada, simplemente se encuentra
+   codificada en base64
+   En consola:
+        echo "YWxndW51c3VhcmlvOmFsZ3VuYXBhc3N3b3Jk" | base64 -d
+   retorna:
+        algunusuario:algunapassword
+
+16.

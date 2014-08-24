@@ -1,0 +1,10 @@
+GET /foo/?q=b HTTP/1.1
+Host: 192.168.122.156
+
+
+curl -X -v
+
+que headers importan como cliente?
+Content-length: si mando un body (tengo que decirle si o si la longitud si no no sabría donde terminar)
+content-type: si mando un body (no es obligatorio, pero es recomendable)
+ba
