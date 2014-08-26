@@ -35,44 +35,37 @@ next slash "/", question-mark "?", or by the end of the URI.
     Accept-Encoding: gzip,deflate,sdch
     Accept-Language: en-US,en;q=0.8,es;q=0.6,pt;q=0.4
     Cookie: org.cups.sid=12f98b571b648df6e715912ec1a84e66
+    ---------------------------------------------------------------------------
+
+    The first line of an HTTP request message is called the request line; the
+    subsequent lines are called the header lines. The request line has three
+    fields: the method field, the URL field, and the HTTP version field.
 
     GET: method to be performed on the resource identified by the Request-URI
-    / : Absolute path (root)
-    Host: network location of the URI (authority) MUST be transmitted in a Host header field
-    Connection:
-    keep-alive: HTTP persistent connection. idea of using a single TCP connection to send
-                and receive multiple HTTP requests/responses, as opposed to opening a new
-                connection for every single request/response pair
-    Accept:
-    User-Agent:
+    / : Object (Absolute path, i.e. root)
+    HTTP/1.1: version.
+
+    Host: specifies the host no which the object resides.
+    Connection: specifies if the connection should be persisten ('keep-alive'
+                token) or not ('close' token)
+    Accept: specifies media types that are acceptable for the response.
+    User-Agent: information about the user agent originating the request, for
+                statistical purposes, the tracing of protocol violations, and
+                automated recognition of user agents for the sake of tailoring
+                responses to avoid particular user agent limitations.
     Accept-Encoding:
-    Accept-Language:
-    Cookie:
-  b. TODO PREGUNTAR!
-      HTTP/1.1 302 Found
-      Content-Type: text/html
-      Content-Length: 30
-      <html><head></head><body>a</body></html>
+    Accept-Language: specifies which language version of the object is
+                     prefered, if available.
+    Cookie: HTTP cookie previously sent with Set-Cookie
 
+  a. TODO
 
+  b. HTTP/1.1 200 OK
+     Connection: close
+     Content-Length: 30
+     Content-Type: text/plain
 
-
-
-
-
-
-
-
-
-
-      sadf
-      asdf
-      asdf
-      sadf
-
-    Luego en el browser apareció:
-        sadf asdf asdf sadf
-
+     123456789 123456789 123456789
 8.
 En la terminal hacer:
     > nc -v www.google.com 80
@@ -101,7 +94,7 @@ Otras codificaciones son:
 
 10.
 Media Type: Standard identifier used on the Internet to indicate the type of
-data that a file contains
+            data that a file contains
 
 a.
 b. type/subtype
@@ -115,6 +108,8 @@ c.vi.  application/pdf
 c.vii. application/x-... ???? -- TODO PREGUNTAR, dice estar deprecated!
 
 11.
+
+Requisitos: TODO
 
 Ventajas:
 - By opening and closing fewer TCP connections, CPU time is saved in routers
@@ -134,7 +129,7 @@ Ventajas:
   might optimistically try a new feature, but if communicating with an older
   server, retry with old semantics after an error is reported.
 
-Pipelining: sending multiple requests without waiting for each response
+Pipelining: sending multiple requests without waiting for each response.
 
 12.
 Métodos: GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT.
@@ -167,6 +162,29 @@ POST se utiliza cuando:
   would perceive (e.g., a subscription to a service)
 - The user be held accountable for the results of the interaction.
 
+13. > nc www.google.com.ar 80
+    > TRACE / HTTP/1.1
+    >
+    >
+
+    Retorna un 405 Method Not Allowed
+
+    Hipótesis de pq sucede? TODO
+
+14.a. 301 Moved Permanently
+   b. 401 Unauthorized
+   c. 401 Unauthorized
+   d. 409 Conflict
+   e. Si se sabe que el recurso no se encuentra más en el servidor, y se espera
+      que sea permanente, y se desea notificar al usuario que el recurso se
+      encuentra intencionalmente no disponible, debería usarse 410 Gone. Si no
+      se sabe si es permanente, 404 Not Found.
+   f. TODO
+   g. 400 Bad Request
+   h. 415 Unsupported Media Type
+   i. 503 Service Unavailable
+   j. 405 Method Not Allowed
+
 15.
 a. The Authorization field value consists of credentials containing the
    authentication information of the user agent for the realm of the resource
@@ -178,4 +196,41 @@ b. Se puede recuperar ya que no está cifrada, simplemente se encuentra
    retorna:
         algunusuario:algunapassword
 
-16.
+16. TODO
+
+17. TODO
+
+18. TODO
+
+19. TODO
+
+20. El header Range:
+    No funciona con todas (TODO buscar ejemplo y preguntar por qué)
+
+21. TODO Consultar una explicación más clara!
+    Vary: The Vary field value indicates the set of request-header fields that
+          fully determines, while the response is fresh, whether a cache is
+          permitted to use the response to reply to a subsequent request
+          without revalidation. For uncacheable or stale responses, the Vary
+          field value advises the user agent about the criteria that were used
+          to select the representation.
+    Via: MUST be used by gateways and proxies to indicate the intermediate
+         protocols and recipients between the user agent and the server on
+         requests, and between the origin server and the client on responses.
+         It's intended to be used for tracking message forwards, avoiding
+         request loops, and identifying the protocol capabilities of all
+         senders along the request/response chain.
+
+22. TODO
+
+23. Los field names de los headers son case-insensitive, con lo cual ambas son
+    iguales.
+
+24. TODO
+
+25.
+Numerónimo que significa "Concurrently handling 10 thousand connections". Es
+el problema de optimizar un "network socket" para manejar un gran número de
+clientes en simultaneo.
+
+26. TODO
